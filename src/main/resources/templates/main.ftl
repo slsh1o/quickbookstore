@@ -37,7 +37,7 @@
                     <li class="list-group-item">$ ${book.price}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="/order" class="card-link">Buy</a>
+                    <a href="/order/${book.id}" class="card-link">Buy</a>
                 </div>
             </div>
         <#else>

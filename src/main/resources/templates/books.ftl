@@ -10,6 +10,7 @@
         <@bf.bookForm "/books" false />
     </div>
 <#--Books list-->
+    <div class="card-columns">
     <#list books as book>
         <div class="card my-3" style="width: 18rem;">
             <div class="card-body">
@@ -27,4 +28,5 @@
             </div>
         </div>
     </#list>
+    </div>
 </@common.main>

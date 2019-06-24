@@ -20,6 +20,7 @@ public class MainController {
     public String main(
             @RequestParam(required = false, defaultValue = "") String genreFilter,
             @RequestParam(required = false, defaultValue = "") String filter,
+            //TODO made authors as links to show related books
             @RequestParam(required = false, defaultValue = "") String author,
             Model model
     ) {

@@ -65,12 +65,12 @@ public class BookController {
     ) {
         Book book = new Book(title, description, price);
         book.setAuthors(Arrays.asList(authors.split("\\s*,\\s*")));
-
         book.setGenres(getGenresFromForm(form));
 
         bookRepository.save(book);
         return "redirect:/books";
     }
+
 
     /*
     * =====//===
@@ -87,7 +87,6 @@ public class BookController {
         for (String value : form.keySet()) {
             if(genres.contains(value)) {
                 gTemp.add(Genre.valueOf(value));
-                //book.getGenres().add(Genre.valueOf(value));
             }
         }
         return gTemp;

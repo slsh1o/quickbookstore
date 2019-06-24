@@ -10,7 +10,7 @@
                 <a class="nav-link" href="/">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/books">Add book</a>
+                <a class="nav-link" href="/books">Admin page</a>
             </li>
         </ul>
     </div>

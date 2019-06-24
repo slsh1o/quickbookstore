@@ -28,6 +28,9 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private Set<Genre> genres;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderedBook")
+    private List<Order> orders;
+
     public Book() {
     }
 
@@ -91,5 +94,13 @@ public class Book {
 
     public void setGenres(Set<Genre> genres) {
         this.genres = genres;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
