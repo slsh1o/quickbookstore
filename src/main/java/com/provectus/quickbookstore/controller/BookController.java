@@ -6,15 +6,9 @@ import com.provectus.quickbookstore.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -31,6 +25,36 @@ public class BookController {
         return "books";
     }
 
+    @GetMapping("/edit/{book}")
+    public String editBook(@PathVariable Book book, Model model) {
+        model.addAttribute("book", book);
+        model.addAttribute("genres", Genre.values());
+
+        return "bookEdit";
+    }
+
+    @PostMapping("/edit")
+    public String editBook(
+            @RequestParam("bookId") Book book,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam Double price,
+            @RequestParam String authors,
+            @RequestParam Map<String,String> form
+    ) {
+        book.setTitle(title);
+        book.setDescription(description);
+        book.setPrice(price);
+
+        ArrayList<String> authorsTemp = new ArrayList<>(Arrays.asList(authors.split("\\s*,\\s*")));
+        book.setAuthors(authorsTemp);
+        book.setGenres(getGenresFromForm(form));
+
+        bookRepository.save(book);
+
+        return "redirect:/books";
+    }
+
     @PostMapping()
     public String addBook(
             @RequestParam String title,
@@ -39,14 +63,20 @@ public class BookController {
             @RequestParam String authors,
             @RequestParam Map<String,String> form
     ) {
-        /*book.setTitle(title);
-        book.setDescription(description);
-        book.setPrice(price);
-        book.setAuthors(Arrays.asList(authors.split("\\s*,\\s*")));*/
-
         Book book = new Book(title, description, price);
         book.setAuthors(Arrays.asList(authors.split("\\s*,\\s*")));
 
+        book.setGenres(getGenresFromForm(form));
+
+        bookRepository.save(book);
+        return "redirect:/books";
+    }
+
+    /*
+    * =====//===
+    * */
+
+    private Set<Genre> getGenresFromForm(Map<String, String> form) {
         // Get all available genres and convert them to Set
         Set<String> genres = Arrays.stream(Genre.values())
                 .map(Genre::name)
@@ -60,9 +90,6 @@ public class BookController {
                 //book.getGenres().add(Genre.valueOf(value));
             }
         }
-        book.setGenres(gTemp);
-
-        bookRepository.save(book);
-        return "books";
+        return gTemp;
     }
 }

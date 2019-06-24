@@ -1,5 +1,8 @@
 package com.provectus.quickbookstore.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -11,11 +14,13 @@ public class Book {
     private Integer id;
 
     private String title;
+    @Column(columnDefinition="VARCHAR(2000)")
     private String description;
     private Double price;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id"))
+    @Fetch(FetchMode.SUBSELECT)// N + 1 issue solving
     private List<String> authors;
 
     @ElementCollection(targetClass = Genre.class, fetch = FetchType.EAGER)
@@ -32,7 +37,7 @@ public class Book {
         this.price = price;
     }
 
-    public Book(String title, String description, Double price, List authors, Set<Genre> genres) {
+    public Book(String title, String description, Double price, List<String> authors, Set<Genre> genres) {
         this.title = title;
         this.description = description;
         this.price = price;
