@@ -1,0 +1,6 @@
+AuthType Basic
+AuthName "Restricted access"
+AuthUserFile /path/to/.htpasswd
+<Files "books.ftl", "bookEdit.ftl">
+require valid-user
+</Files>
