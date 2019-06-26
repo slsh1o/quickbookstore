@@ -26,7 +26,7 @@
                 <label for="author">Authors</label>
                 <input aria-describedby="descriptionHelp" type="text" name="authors" class="form-control" placeholder="Enter authors separated by comma ','" id="author" required
                        <#if isEditForm>value="<#list book.authors as author>${author}<#sep>, </#list>"</#if> />
-                <small id="descriptionHelp" class="form-text text-muted">Like: Martin Jeannot, Linus Torvalds, ...</small>
+                <small id="descriptionHelp" class="form-text text-muted">Use comma to separate several authors like: Martin Jeannot, Linus Torvalds, ...</small>
             </div>
             <div class="form-group">
                 <label for="price">Price</label>

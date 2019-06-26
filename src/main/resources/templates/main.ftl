@@ -14,12 +14,12 @@
                 </#list>
             </div>
             <div class="ml-2">
-                <span class="badge badge-light">${genreFilter?ifExists?capitalize}</span>
+                <span class="badge badge-light">${genreFilter!?capitalize}</span>
             </div>
             <ul class="navbar-nav mr-auto">
             </ul>
             <form class="form-inline my-2 my-lg-0 mr-1">
-                <input class="form-control mr-sm-2" name="filter" value="${filter?ifExists}" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-sm-2" name="filter" value="${filter!}" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </nav>
@@ -32,7 +32,7 @@
                     <p class="card-text">${book.description}</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">by <#list book.authors as author>${author}<#sep>, </#list></li>
+                    <li class="list-group-item">by <#list book.authors as author><a href="?authorFilter=${author}">${author}</a><#sep>, </#list></li>
                     <li class="list-group-item">Genres: <#list book.genres as genre>${genre?capitalize}<#sep>, </#list></li>
                     <li class="list-group-item">$ ${book.price}</li>
                 </ul>

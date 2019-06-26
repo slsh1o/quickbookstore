@@ -3,7 +3,6 @@ package com.provectus.quickbookstore.controller;
 import com.provectus.quickbookstore.model.Book;
 import com.provectus.quickbookstore.model.Genre;
 import com.provectus.quickbookstore.repositories.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,12 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/books")
 public class BookController {
-    @Autowired
-    BookRepository bookRepository;
+
+    private final BookRepository bookRepository;
+
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     @GetMapping()
     public String booksList(Model model) {
@@ -46,7 +49,10 @@ public class BookController {
         book.setDescription(description);
         book.setPrice(price);
 
-        ArrayList<String> authorsTemp = new ArrayList<>(Arrays.asList(authors.split("\\s*,\\s*")));
+        ArrayList<String> authorsTemp = new ArrayList<>(
+                Arrays.asList(authors
+                        .trim()
+                        .split("\\s*,\\s*")));
         book.setAuthors(authorsTemp);
         book.setGenres(getGenresFromForm(form));
 
@@ -64,7 +70,10 @@ public class BookController {
             @RequestParam Map<String,String> form
     ) {
         Book book = new Book(title, description, price);
-        book.setAuthors(Arrays.asList(authors.split("\\s*,\\s*")));
+        book.setAuthors(
+                Arrays.asList(authors
+                        .trim()
+                        .split("\\s*,\\s*")));
         book.setGenres(getGenresFromForm(form));
 
         bookRepository.save(book);

@@ -3,7 +3,6 @@ package com.provectus.quickbookstore.controller;
 import com.provectus.quickbookstore.model.Book;
 import com.provectus.quickbookstore.model.Order;
 import com.provectus.quickbookstore.repositories.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/order")
 public class OrderController {
-    @Autowired
-    OrderRepository orderRepository;
+
+    private final OrderRepository orderRepository;
+
+    public OrderController(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @GetMapping("{book}")
     public String orderBook(
