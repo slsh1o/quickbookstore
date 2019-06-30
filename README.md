@@ -1,4 +1,4 @@
-# quickbookstore - Simple and light bookstore
+# quickBookstore - Simple and light bookstore
 ## Set up
 First of all you should create a new PostgreSQL database with name 'quickbookstore'
 ### Set up application.properties file
@@ -11,5 +11,5 @@ spring.datasource.password=
 ```
 ## Usage
 Now generate a WAR file and deploy it or just run application in your preferred IDE
-###Enjoy!
+### Try it
 The application can now be accessed at http://localhost:8080/
